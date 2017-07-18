@@ -13,7 +13,8 @@
         android:layout_gravity="center"
         android:background="@drawable/item_selector"
         android:padding="15dp"
-        tools:text="lala"
+        android:textAlignment="center"
+        android:textColor="#9400D3"
         android:duplicateParentState="true"
         />
 

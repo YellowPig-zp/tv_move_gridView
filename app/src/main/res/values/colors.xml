@@ -5,4 +5,5 @@
     <color name="colorAccent">#FF4081</color>
     <color name="pressedColor">#303F9F</color>
     <color name="normalColor">#8e8e8e</color>
+    <color name="folderColor">#97FFFF</color>
 </resources>

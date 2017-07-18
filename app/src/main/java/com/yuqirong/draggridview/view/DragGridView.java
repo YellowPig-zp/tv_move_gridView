@@ -33,6 +33,11 @@ public class DragGridView extends GridView {
     public static final int MODE_NORMAL = 2;
     public static final int MODE_FORBID = 3;
 
+    // whether add to folder or not
+    public boolean addToFolder = false;
+    // The current folder
+    public String currFolder;
+
     public int mode = MODE_FORBID;
     private View dragView;
     // 要移动的item原先位置
@@ -177,7 +182,9 @@ public class DragGridView extends GridView {
      *
      *
      */
-    private void itemMoveMain(int dropPosition,int tempPosition) {//第一个参数表示焦点所在item当前位置，第二个参数表示目标位置
+    private void itemMoveMain(int dropPosition,int tempPosition) {
+        //第一个参数表示焦点所在item
+        // 当前位置，第二个参数表示目标位置
         TranslateAnimation translateAnimation;
         if(tempPosition-dropPosition>0) {
             View view = getChildAt(dropPosition-getFirstVisiblePosition());
@@ -186,7 +193,9 @@ public class DragGridView extends GridView {
             float xValue = (nextView.getLeft() - view.getLeft()) * 1f / view.getWidth();
             float yValue = (nextView.getTop() - view.getTop()) * 1f / view.getHeight();
             translateAnimation =
-                    new TranslateAnimation(Animation.RELATIVE_TO_SELF, 0f, Animation.RELATIVE_TO_SELF, xValue, Animation.RELATIVE_TO_SELF, 0f, Animation.RELATIVE_TO_SELF, yValue);
+                    new TranslateAnimation(Animation.RELATIVE_TO_SELF, 0f,
+                            Animation.RELATIVE_TO_SELF, xValue, Animation.RELATIVE_TO_SELF,
+                            0f, Animation.RELATIVE_TO_SELF, yValue);
             translateAnimation.setInterpolator(new LinearInterpolator());
             translateAnimation.setFillBefore(true);
             translateAnimation.setFillAfter(false);

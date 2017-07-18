@@ -10,6 +10,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.yuqirong.draggridview.R;
+import com.yuqirong.draggridview.activity.MainActivity;
 import com.yuqirong.draggridview.view.DragGridView;
 
 import java.util.ArrayList;
@@ -31,12 +32,16 @@ public  class DragGridAdapter extends BaseAdapter {
 
     private final List<String> list;
 
+    // folders
+    private static Map<String, List<String>> folders = new HashMap<>();
+
     private LayoutInflater mInflater;
     private Context context;
 
     private DragGridView gridView;
-    public DragGridAdapter(List list, Context context, DragGridView gridView) {
+    public DragGridAdapter(List list, Map<String, List<String>> folders, Context context, DragGridView gridView) {
         this.list = list;
+        this.folders = folders;
         this.context = context;
         this.gridView = gridView;
         mInflater = LayoutInflater.from(context);
@@ -62,7 +67,7 @@ public  class DragGridAdapter extends BaseAdapter {
         ViewBean holder;
         if (view == null) {
             holder = new ViewBean();
-            view = mInflater.inflate(R.layout.item,parent,false);
+            view = mInflater.inflate(R.layout.item, parent, false);
             holder.text = (TextView) view.findViewById(R.id.tv_text);
             view.setTag(holder);
         } else {
@@ -74,6 +79,11 @@ public  class DragGridAdapter extends BaseAdapter {
         }else{
             holder.text.setBackgroundResource(R.color.normalColor);
         }
+        String text = "" + list.get(position);
+        if (folders != null && folders.containsKey(text)) {
+            text = text + "\nfolder";
+        }
+        holder.text.setText(text);
         return view;
     }
 
@@ -106,6 +116,10 @@ public  class DragGridAdapter extends BaseAdapter {
 
     private final class ViewBean {
         TextView text;
+    }
+
+    public List<String> getList() {
+        return list;
     }
 
 }
