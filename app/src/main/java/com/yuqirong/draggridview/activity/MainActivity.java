@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ListAdapter;
 import android.widget.TextView;
@@ -43,6 +44,8 @@ public class MainActivity extends Activity {
     private int totalFile = 0;
 
     boolean isOpen = false;
+
+    final int CODE = 0x717;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,7 +108,8 @@ public class MainActivity extends Activity {
                         public void onClick(DialogInterface dialogInterface, int i) {
                             Intent intent = new Intent(MainActivity.this, FolderActivity.class);
                             intent.putStringArrayListExtra("items", (ArrayList<String>) folders.get(list.get(index)));
-                            startActivity(intent);
+                            intent.putExtra("folderID", list.get(index));
+                            startActivityForResult(intent, CODE);
                             return;
                         }
                     });
@@ -196,4 +200,21 @@ public class MainActivity extends Activity {
         super.onBackPressed();
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == CODE && resultCode == CODE) {
+            if (data.getStringArrayListExtra("allItems") != null) {
+                folders.remove(data.getStringExtra("folderID"));
+                list.addAll(data.getStringArrayListExtra("allItems"));
+                list.remove(data.getStringExtra("folderID"));
+                return;
+            }
+            ArrayList<String> removedItems = data.getStringArrayListExtra("removedItems");
+            String folderID = data.getStringExtra("folderID");
+            folders.get(folderID).removeAll(removedItems);
+            list.addAll(removedItems);
+            ((BaseAdapter) mGridView.getAdapter()).notifyDataSetChanged();
+        }
+    }
 }

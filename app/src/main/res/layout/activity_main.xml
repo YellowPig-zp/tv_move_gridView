@@ -7,22 +7,12 @@
     android:orientation="vertical"
     tools:context=".activity.MainActivity"
     >
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal" >
-                <Button
-                    android:id="@+id/create_folder"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="创建文件夹"/>
-                <Button
-                    android:id="@+id/add_to_folder"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="纳入文件夹"/>
-        </LinearLayout>
 
+        <Button
+            android:id="@+id/create_folder"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="创建文件夹"/>
 
         <com.yuqirong.draggridview.view.DragGridView
             android:id="@+id/mGridView"
